@@ -14,8 +14,8 @@ public class ClientSideFileTransfer {
 	private enum ConnectionState {CONNECTING, CONNECTED, CLOSED};
 	private enum SendingState {SENDING, RECEIVING};
 	
-	private static final String[] SERVERS = {"Lappy", "DrewGod", "Cody"};
-	private static final String[] SERVERIPS = {"192.168.1.138", "192.168.1.138", "192.168.1.142"};
+	private static final String[] SERVERS = {}; //insert server names here
+	private static final String[] SERVERIPS = {}; //insert associated IPs here
 	private static final String DEFAULT_LIST_LOCATION = "C:\\Stored Files";
 	private static final String DEFAULT_SAVE_LOCATION = "C:\\Received Files";
 	private static String saveLocation = DEFAULT_SAVE_LOCATION;
@@ -41,35 +41,14 @@ public class ClientSideFileTransfer {
 
 	public static void main(String[] args) {
 		new FTWindow();
-		/*
-		 * ClientSideFileTransfer window = new ClientSideFileTransfer();
-		 * window.setVisible(true);
-		 * eliminate ftwindow class, have CSFT extend JFrame
-		 * eliminate the static parts of the classes and variables
-		 */
 	}
 	
 	/*
-	 * 1/2
 	 * technically this program is finished as an FTP
 	 * technically meaning that it functions
-	 * this program feels very incomplete
-	 * but the things I know should be added are projects in themselves
-	 * and it would be easier to do them in a seperate program that isn't already as long as this one
-	 * the things I want to do are:
-	 * a connect feature that port scans before connecting to a server, not too hard but still
-	 * progress bar for download/upload, requires creating a swingworker class that interacts with property change
-	 * doesn't seem horrible for downloading since that's simple enough to put into doinbackground, uploads on the other hand seem like a lot
-	 * ping function that checks if servers are online. would probably be a good combination with the port scanner tbh
-	 * 
-	 * the above things are things I feel are do-able, but not worth as much as getting experience doing something else
-	 * the below things are things I feel would take a lot of unnecessary time:
-	 * client list feature where users that connect to the server are given unique identifiers
-	 * the unique identifiers would have the server filter stored files to each user. think of it as an actual FTP program for download
-	 * 
-	 * actually thats it for complex features, but that's a lot of work I feel, if I were adding to this instead of making it in a new program.
-	 * 
-	 * I guess that's all for this code...
+	 * still would need a lot of touching up, and honestly it's probably easier to do in other languages
+	 * this was done before I touched C, python, html/css/JS, etc. 
+	 * Probably would be way better as a python based web app.
 	 */
 
 	private static class FTWindow extends JFrame {
@@ -188,8 +167,8 @@ public class ClientSideFileTransfer {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				if (connect != null) {
-					serverName.setText(SERVERS[connectIndex]);  //c? less important aspect of the program tbh
-					if (connect.isConnected()) {				//can look at it later
+					serverName.setText(SERVERS[connectIndex]);  
+					if (connect.isConnected()) {				
 						if (status == ConnectionState.CONNECTED) {
 							conStatus.setText("Connected");
 							conStatus.setForeground(goodGreen);
@@ -256,27 +235,6 @@ public class ClientSideFileTransfer {
 				
 				add(download);
 				add(bottom);
-				
-			}
-			/*
-			 * things to do to get a progress bar to work here:
-			 * 1. create a task class extending swingworker 
-			 * this class has its own doinbackground and done methods
-			 * doinbackground would check sendingState, then either send/recieve files
-			 * download progress seems easy, just put receiveFiles() method into the task and add progress updates into the code
-			 * uploads on the other hand seem like a lot more work, since I'd either have to move sendFiles/FileData into the task class
-			 * in order to update, or I'd have to somehow add progress updates to the methods themselves
-			 * done method would be pretty simple
-			 * 2. have the server/your files methods each create a new task on approve option instead of doing it themselves
-			 */
-			
-			private static class ProgressListener implements PropertyChangeListener {
-
-				@Override
-				public void propertyChange(PropertyChangeEvent evt) {
-
-					
-				}
 				
 			}
 			
