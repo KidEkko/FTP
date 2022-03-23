@@ -15,9 +15,8 @@ public class FileTransferServer {
 	private ArrayList<File> storedFileList = new ArrayList<File>();
 	/*
 	 * in a world where this is an actual program/software for use by multiple people
-	 * you would have some user system where each user has their own individual files 
-	 * each of these would be a separately formed arraylist, but see the below comment section 
-	 * for why I'm ignoring that
+	 * you would have some user system where each user has their own individual files (SQL for example)
+	 * once again this program is not all you'd want for an FTP, and other languages are far better now that I've learned some of them
 	 */
 	private FileTransferServer server;
 	private ConnectionHandler connection;
@@ -26,12 +25,6 @@ public class FileTransferServer {
 	private enum SendingState {SENDING, RECEIVING};
 	
 	private final int DEFAULT_PORT = 1500;
-	/*
-	 * there are a lot of little aspects to server code that I could add to this
-	 * shutdown strings, client lists, shutdown message, methods that close all connections for a server shutdown
-	 * for now I'm going to make the program work, worry about that stuff later
-	 * this is a learning experience, doesn't have to be perfect
-	 */
 	
 	public static void main(String[] args) {
 		FileTransferServer server = new FileTransferServer();
@@ -82,7 +75,7 @@ public class FileTransferServer {
 		}
 	}
 	
-	private int lowestAvailablePort() { //was an idea I had, still should be good but might not be needed now
+	private int lowestAvailablePort() { //was an idea I had, doesn't work, don't plan to update
 		int lowest = DEFAULT_PORT;
 		while (lowest < 65535) {
 			try {
@@ -92,7 +85,7 @@ public class FileTransferServer {
 			} catch (BindException e) {
 				lowest++;
 			} catch (IOException e) {
-				System.out.println("Shit\'s fucked dawg.");
+				System.out.println("RIP");
 			}
 		}
 		return lowest;
